@@ -7,8 +7,8 @@ count: 1
 region: "ap-south-1"
 sg_group: "sg-0ff60ad8584387b08"
 key_name: "awsclass2020key"
-user_name: "AKIA4H2OR4UCBHJ2TZO6"
-passwd: "h9bxW6l2QYJGrHBy1Leholes+RFCUwKoGaidF4YY"
+user_name: "Axxxxxxxxxxxxxxxxxxxxxxx"
+passwd: "hxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
 instance_name:
         - "k8s_Master"
         - "k8s_node1"
