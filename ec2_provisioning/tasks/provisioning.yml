@@ -1,0 +1,35 @@
+- hosts: localhost
+  gather_facts: false
+  vars_files: 
+           - secret.yml
+  tasks:
+          - name : "launching Ec2 instanse for lb"
+            ec2:
+                    count: 1
+                    image: ami-0a9d27a9f4f5c0efc
+                    instance_type: t2.micro
+                    region: "ap-south-1"
+                    instance_tags:
+                            Name: LB
+                    group_id: "sg-0ff60ad8584387b08"
+                    key_name: "awsclass2020key"
+                    aws_access_key: "{{user_name}}"
+                    aws_secret_key: "{{passwd}}"
+                    state: present
+                    wait: yes 
+
+          - name : "launching Ec2 instanse for webserver"
+            ec2:
+                    count: 3
+                    image: ami-0a9d27a9f4f5c0efc
+                    instance_type: t2.micro
+                    region: "ap-south-1"
+                    instance_tags:
+                            Name: webserver
+                    group_id: "sg-0ff60ad8584387b08"
+                    key_name: "awsclass2020key"
+                    aws_access_key: "{{user_name}}"
+                    aws_secret_key: "{{passwd}}"
+                    state: present
+                    wait: yes
+

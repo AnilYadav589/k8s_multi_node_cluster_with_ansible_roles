@@ -1,0 +1,19 @@
+#- hosts: localhost
+#  roles:
+#          - name: "launching ec2-instance" 
+#            role: "ec2_provisioning"
+- hosts: "tag_Name_k8s_Master"
+  roles:
+          - name: "configuring k8s  master node"
+            role: "kubernetes_master_node"
+
+- hosts: ["tag_Name_k8s_node1","tag_Name_k8s_node2"]
+  vars_prompt:
+          - name: joincmd
+            prompt: "Enter the command to join the worker nodes to the master nodes- "
+            private: no
+  roles:
+          - name: "configuring k8s  master node"
+            role: "kubernetes_worker_node"
+
+            

@@ -1,0 +1,42 @@
+---
+# tasks file for kubernetes_worker_node
+- name: "Configuring yum repo for Kubernetes"
+  yum_repository:
+            name: "kunernetes_yum_repo"
+            description: "yum_repo for K8s"
+            baseurl: "https://packages.cloud.google.com/yum/repos/kubernetes-el7-x86_64"
+            gpgcheck: no
+
+- name: "Installing Software"
+  package:
+          name: "{{ item }}"
+          state: present
+  loop: "{{ software_name }}"
+- name: "Starting services"
+  service:
+          name:  "{{ item }}"
+          state: started
+  loop: "{{ software }}"
+
+- name: "Changing the docker .cgroupdriver to systemd"
+  copy:
+            dest: "/etc/docker/daemon.json"
+            content: '{
+                      "exec-opts": ["native.cgroupdriver=systemd"]
+                      }'
+
+- name: "Restarting docker service"
+  service:
+            name: "docker"
+            state: restarted
+- name: "Installing iproute-tc software"
+  package:
+            name: "iproute-tc"
+            state: present
+- name: "Bridge to 1"
+  shell: echo "1" > /proc/sys/net/bridge/bridge-nf-call-iptables
+
+- name: "Joining the K8s worker node to the master node"
+  command: "{{ joincmd }}"
+- debug:
+        msg: "configured as worker nodes "

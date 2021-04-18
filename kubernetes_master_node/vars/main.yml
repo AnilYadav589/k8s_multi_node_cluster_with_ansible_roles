@@ -1,0 +1,11 @@
+---
+# vars file for kubernetes_master_node
+software_name:
+        - "docker"
+        - "kubelet"
+        - "kubeadm"
+        - "kubectl"
+software:
+        - "docker"
+        - "kubelet"
+

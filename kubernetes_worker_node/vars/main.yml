@@ -1,0 +1,10 @@
+---
+# vars file for kubernetes_worker_node
+software_name:
+        - "docker"
+        - "kubelet"
+        - "kubeadm"
+        - "kubectl"
+software:
+        - "docker"
+        - "kubelet"
